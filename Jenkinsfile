@@ -10,7 +10,8 @@ pipeline {
       steps {
         agent{
           dockerfile {
-              filename 'Dockerfile.builder',
+              filename '$workspace/Dockerfile.builder',
+              dir '.',
               label 'builder'              
           }
         }
