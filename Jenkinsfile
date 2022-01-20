@@ -7,14 +7,14 @@ pipeline {
     //   }
     // }
     stage("Build") {
-      steps {
-        agent{
+      agent{
           dockerfile {
               filename '$workspace/Dockerfile.builder',
               dir '.',
               label 'builder'              
           }
         }
+        
       }
     }      
   }
