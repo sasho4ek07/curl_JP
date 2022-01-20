@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        git url: 'https://github.com/jfrogdev/project-examples.git'
+        git url: 'https://github.com/curl/curl.git'
         sh 'ls'
       }
     }
