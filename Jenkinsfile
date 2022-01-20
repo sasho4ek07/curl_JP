@@ -1,11 +1,22 @@
 pipeline {
-  agent { label 'docker' }
+  agent any
   stages {
-    stage('Test') {
+    stage('Checkout repository') {
       steps {
         git url: 'https://github.com/curl/curl.git'
-        sh 'ls'
       }
+    }
+    stage("Build") {
+      steps {
+        agent{
+          dockerfile {
+              filename 'Dockerfile.builder',
+              label 'builder'              
+          }
+        }
+      }
+    }
+
     }
   }
 }
