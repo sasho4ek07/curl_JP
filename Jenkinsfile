@@ -9,9 +9,9 @@ pipeline {
     stage("Build") {
       agent{
           dockerfile {
-              filename '$workspace/Dockerfile.builder',
-              dir '.',
-              label 'builder'              
+              filename '$workspace/Dockerfile.builder'
+              // dir '.'
+              label 'builder'
           }
         }
         
