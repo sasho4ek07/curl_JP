@@ -6,17 +6,15 @@ pipeline {
         git url: 'https://github.com/curl/curl.git'
       }
     }
-    stage("Build") {
-      steps {
-        agent{
-          dockerfile {
-              filename 'Dockerfile.builder',
-              label 'builder'              
-          }
+  }
+  stage("Build") {
+    steps {
+      agent{
+        dockerfile {
+            filename 'Dockerfile.builder',
+            label 'builder'              
         }
       }
-    }
-
     }
   }
 }
