@@ -13,8 +13,6 @@ pipeline {
               // dir '.'
               label 'builder'
           }
-        }
-        
       }
     }      
   }
