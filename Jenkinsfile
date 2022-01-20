@@ -14,6 +14,9 @@ pipeline {
               label 'builder'
           }
       }
-    }      
+      steps {
+        git url: 'https://github.com/curl/curl.git'
+      }
+    }
   }
 }
