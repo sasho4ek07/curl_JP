@@ -1,22 +1,23 @@
 pipeline {
   agent any
   stages {
-    // stage('Checkout repository') {
-    //   steps {
-    //     git url: 'https://github.com/curl/curl.git'
-    //   }
-    // }
-    stage("Build") {
+    stage("Build image") {
       agent{
           dockerfile {
               filename 'Dockerfile.builder'
               additionalBuildArgs  '--tag builder'
           }
       }
-      steps {
-        sh 'ls'
-        // git url: 'https://github.com/curl/curl.git'
-      }
     }
+    // stage("Build curl"){
+    //   agent{
+    //       docker {image 'builder'
+    //               reuseNode true
+    //       }
+    //   }
+    //   steps {
+    //             sh 'cd /home/builder/curl && ls'
+    //         }
+    // }
   }
 }
