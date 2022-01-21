@@ -2,6 +2,12 @@ pipeline {
   agent none
   stages {
     stage("Build image") {
+      steps {
+              git url: https://github.com/curl/curl.git
+              sh "cd ../ && pwd && ls"
+            }
+    }
+    stage("Build image") {
       agent{
           dockerfile {
               filename 'Dockerfile.builder'
