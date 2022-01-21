@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage("Build image") {
+    stage("Clone repo") {
       steps {
               git url: 'https://github.com/curl/curl.git'
               sh "cd ../ && pwd && ls"
