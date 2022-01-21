@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage("Build image") {
       steps {
-              git url: https://github.com/curl/curl.git
+              git url: 'https://github.com/curl/curl.git'
               sh "cd ../ && pwd && ls"
             }
     }
