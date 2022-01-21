@@ -9,12 +9,13 @@ pipeline {
     stage("Build") {
       agent{
           dockerfile {
-              filename '$workspace/Dockerfile.builder'
+              filename 'Dockerfile.builder'
               // dir '.'
           }
       }
       steps {
-        git url: 'https://github.com/curl/curl.git'
+        sh 'ls'
+        // git url: 'https://github.com/curl/curl.git'
       }
     }
   }
