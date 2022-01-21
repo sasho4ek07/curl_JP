@@ -10,7 +10,7 @@ pipeline {
       agent{
           dockerfile {
               filename 'Dockerfile.builder'
-              // dir '.'
+              additionalBuildArgs  '--tag builder'
           }
       }
       steps {
