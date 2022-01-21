@@ -4,20 +4,25 @@ pipeline {
     stage("Clone repo") {
       steps {
               git url: 'https://github.com/curl/curl.git'
-              sh "cd ../ && pwd && ls"
+              sh "pwd && ls"
             }
     }
-    stage("Build image") {
-      agent{
-          dockerfile {
-              filename 'Dockerfile.builder'
-              additionalBuildArgs  '--tag builder'
-          }
-      }
-      steps{
-          sh 'cd /home/builder/curl && ls'
-      }
+    stage("PWD") {
+      steps {
+              sh "pwd && ls"
+            }
     }
+    // stage("Build image") {
+    //   agent{
+    //       dockerfile {
+    //           filename 'Dockerfile.builder'
+    //           additionalBuildArgs  '--tag builder'
+    //       }
+    //   }
+    //   steps{
+    //       sh 'cd /home/builder/curl && ls'
+    //   }
+    // }
     // stage("Build curl"){
     //   agent{
     //       docker {image 'builder'
