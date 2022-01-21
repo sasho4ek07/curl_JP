@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent none
   stages {
     stage("Build image") {
       agent{
@@ -7,6 +7,9 @@ pipeline {
               filename 'Dockerfile.builder'
               additionalBuildArgs  '--tag builder'
           }
+      }
+      steps{
+          sh 'cd /home/builder/curl && ls'
       }
     }
     // stage("Build curl"){
