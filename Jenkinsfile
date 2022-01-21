@@ -11,7 +11,6 @@ pipeline {
           dockerfile {
               filename '$workspace/Dockerfile.builder'
               // dir '.'
-              label 'builder'
           }
       }
       steps {
