@@ -1,6 +1,7 @@
 pipeline {
   agent {
     label 'master'
+    reuseNode true
   }
   stages {
     stage("Clone repo") {
@@ -9,6 +10,9 @@ pipeline {
             }
     }
     stage("Build image") {
+      steps{
+          sh 'pwd && ls'
+      }
       agent{
           dockerfile {
               filename 'Dockerfile.builder'
@@ -21,9 +25,7 @@ pipeline {
     }
     stage("Build curl"){
       agent{
-          docker {image 'builder'
-                  reuseNode true
-          }
+          docker { image 'builder' }
       }
       steps {
                 sh 'cd /home/builder/curl && ls'
