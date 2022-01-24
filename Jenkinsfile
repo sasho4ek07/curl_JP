@@ -18,8 +18,7 @@ pipeline {
           //         additionalBuildArgs  '--tag builder'
           //         reuseNode true
           //     }
-
-          }
+          // }
           steps{
             script {
               dockerImage = docker.build('builder', 'Dockerfile.builder')
