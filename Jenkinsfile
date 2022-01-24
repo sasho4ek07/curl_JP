@@ -22,7 +22,7 @@ pipeline {
           // }
           steps{
             script {
-              dockerImage = docker.build('builder', '-f Dockerfile.builder')
+              dockerImage = docker.build('builder', '-f Dockerfile.builder', '.')
             }
             sh 'pwd && cd /home/builder/curl && ls'
           }
