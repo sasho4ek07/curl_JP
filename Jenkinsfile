@@ -5,7 +5,7 @@ pipeline {
       agent{ label 'master'}
       steps {
               git url: 'https://github.com/curl/curl.git'
-            }
+      }
     }
     stage("Build image") {
       agent{ label 'master'
@@ -14,7 +14,6 @@ pipeline {
               additionalBuildArgs  '--tag builder'
           }
       }
-    }
       steps{
           sh 'pwd && cd /home/builder/curl && ls'
       }
