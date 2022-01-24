@@ -1,14 +1,11 @@
 pipeline {
-  agent any
+  agent {
+    label 'master'
+  }
   stages {
     stage("Clone repo") {
       steps {
               git url: 'https://github.com/curl/curl.git'
-            }
-    }
-    stage("PWD") {
-      steps {
-              sh "pwd && ls"
             }
     }
     stage("Build image") {
@@ -22,15 +19,15 @@ pipeline {
           sh 'cd /home/builder/curl && ls'
       }
     }
-    // stage("Build curl"){
-    //   agent{
-    //       docker {image 'builder'
-    //               reuseNode true
-    //       }
-    //   }
-    //   steps {
-    //             sh 'cd /home/builder/curl && ls'
-    //         }
-    // }
+    stage("Build curl"){
+      agent{
+          docker {image 'builder'
+                  reuseNode true
+          }
+      }
+      steps {
+                sh 'cd /home/builder/curl && ls'
+            }
+    }
   }
 }
