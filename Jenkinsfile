@@ -9,9 +9,6 @@ pipeline {
             }
     }
     stage("Build image") {
-      steps{
-          sh 'pwd && ls'
-      }
       agent{
           dockerfile {
               filename 'Dockerfile.builder'
@@ -19,7 +16,7 @@ pipeline {
           }
       }
       steps{
-          sh 'cd /home/builder/curl && ls'
+          sh 'pwd && cd /home/builder/curl && ls'
       }
     }
     stage("Build curl"){
