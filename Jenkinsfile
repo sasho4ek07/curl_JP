@@ -1,5 +1,5 @@
 pipeline {
-  agent {label 'master'}
+  agent none //{label 'master'}
   stages {
     stage("Clone repo") {
       steps {
