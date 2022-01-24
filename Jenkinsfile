@@ -12,6 +12,7 @@ pipeline {
         stage("Build image") {
           agent{
               dockerfile {
+                  label 'master'
                   filename 'Dockerfile.builder'
                   additionalBuildArgs  '--tag builder'
                   reuseNode true
