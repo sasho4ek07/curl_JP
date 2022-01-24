@@ -7,6 +7,7 @@ pipeline {
           agent{ label 'master'}
           steps {
                 git url: 'https://github.com/curl/curl.git'
+                sh 'pwd && ls'
           }
         }
         stage("Build image") {
