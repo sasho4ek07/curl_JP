@@ -8,10 +8,11 @@ pipeline {
       }
     }
     stage("Build image") {
-      agent{ label 'master'
+      agent{
           dockerfile {
               filename 'Dockerfile.builder'
               additionalBuildArgs  '--tag builder'
+              reuseNode true
           }
       }
       steps{
@@ -19,7 +20,7 @@ pipeline {
       }
     }
     stage("Build curl"){
-      agent{ label 'master'
+      agent{
           docker { image 'builder' }
       }
       steps {
