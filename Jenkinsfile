@@ -1,7 +1,6 @@
 pipeline {
   agent {
     label 'master'
-    reuseNode true
   }
   stages {
     stage("Clone repo") {
