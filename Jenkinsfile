@@ -1,8 +1,8 @@
 pipeline {
   agent none //{label 'master'}
   stages {
-    stage("Builder") {
-      stages {
+    // stage("Builder") {
+    //   stages {
         stage("Clone repo") {
           agent{ label 'master'}
           steps {
@@ -11,20 +11,24 @@ pipeline {
           }
         }
         stage("Build image") {
-          agent{
-              dockerfile {
-                  label 'master'
-                  filename 'Dockerfile.builder'
-                  additionalBuildArgs  '--tag builder'
-                  reuseNode true
-              }
+          // agent{
+          //     dockerfile {
+          //         label 'master'
+          //         filename 'Dockerfile.builder'
+          //         additionalBuildArgs  '--tag builder'
+          //         reuseNode true
+          //     }
+
           }
           steps{
-              sh 'pwd && cd /home/builder/curl && ls'
+            script {
+              dockerImage = docker.build('builder', 'Dockerfile.builder')
+            }
+            sh 'pwd && cd /home/builder/curl && ls'
           }
         }
-      }
-    }
+    //   }
+    // }
     stage("Build curl"){
       agent{
           docker { image 'builder' }
