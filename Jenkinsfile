@@ -5,9 +5,11 @@ pipeline {
     //   stages {
         stage("Clone repo") {
           agent{ label 'master'}
-          steps {
+          dir('curl') {
+            steps {
                 git url: 'https://github.com/curl/curl.git'
                 sh 'pwd && ls'
+            }
           }
         }
         stage("Build image") {
