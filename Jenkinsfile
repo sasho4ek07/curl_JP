@@ -12,10 +12,10 @@ pipeline {
         stage("Build image") {
           agent{
               dockerfile {
-                  label 'master'
-                  filename 'Dockerfile.builder'
-                  additionalBuildArgs  '--tag builder'
-                  reuseNode true
+                label 'master'
+                filename 'Dockerfile.builder'
+                additionalBuildArgs  '--tag builder'
+                reuseNode true
               }
           }
           steps{
@@ -25,12 +25,15 @@ pipeline {
         }
     stage("Build curl"){
       agent{
-          docker { image 'builder' }
+        docker {
+          image 'builder' 
+          args '-u builder'
+        }
       }
       steps {
-                sh 'ls -la /home/builder'
-                sh 'autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
-            }
+        sh 'ls -la /home/builder && pwd && whoamy'
+        sh 'autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+      }
     }
   }
 }
