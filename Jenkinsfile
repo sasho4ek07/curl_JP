@@ -18,6 +18,7 @@ pipeline{
               }
           }
           steps{
+            sh "printenv"
             echo "Build image complite"
             // sh "ls -la /tmp/curl"
           }
@@ -31,4 +32,10 @@ pipeline{
       }
     }
   }
+  post {
+        always {
+            echo 'One way or another, I have finished'
+            // deleteDir() /* clean up our workspace */
+            sh 'docker rm builder'
+        }
 }
