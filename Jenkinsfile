@@ -13,7 +13,7 @@ pipeline {
             }
         }
         stage("Build image") {
-          agent{ label 'master'}
+          // agent{ label 'master'}
           agent{
               dockerfile {
                   label 'master'
@@ -29,8 +29,8 @@ pipeline {
             sh 'pwd && cd /home/builder/curl && ls'
           }
         }
-      }
-    }
+      // }
+    // }
     stage("Build curl"){
       agent{
           docker { image 'builder' }
