@@ -20,24 +20,17 @@ pipeline {
               }
           }
           steps{
-            script{
-              sh 'pwd && ls /home/builder/curl'
-              def exists = fileExists '/home/builder/curl/configure.ac'
-              if (exists) {
-                sh "pwd && ls /home/builder/curl"
-              } else {
-                println "File doesn't exist"
-              }
-            }
+            echo "Build image complite"
+            sh "ls -la /home/bulder/curl"
           }
         }
-    // stage("Build curl"){
-    //   agent{
-    //       docker { image 'builder' }
-    //   }
-    //   steps {
-    //             sh 'cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
-    //         }
-    // }
+    stage("Build curl"){
+      agent{
+          docker { image 'builder' }
+      }
+      steps {
+                sh 'cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+            }
+    }
   }
 }
