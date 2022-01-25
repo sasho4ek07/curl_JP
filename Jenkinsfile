@@ -30,8 +30,8 @@ pipeline {
         }
       }
       steps {
-        sh 'pwd && ls -la /tmp/curl && whoami'
-        sh 'autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+        // sh 'pwd && ls -la /tmp/curl && whoami'
+        sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
       }
     }
   }
