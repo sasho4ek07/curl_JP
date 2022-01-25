@@ -20,7 +20,7 @@ pipeline {
           }
           steps{
             echo "Build image complite"
-            sh "ls -la /home/builder/curl"
+            sh "ls -la /home/builder"
           }
         }
     stage("Build curl"){
