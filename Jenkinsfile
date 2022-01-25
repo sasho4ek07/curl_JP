@@ -1,8 +1,6 @@
 pipeline {
-  agent none //{label 'master'}
+  agent none
   stages {
-    // stage("Builder") {
-    //   stages {
         stage("Clone repo") {
           agent{ label 'master'}
             steps {
@@ -13,7 +11,6 @@ pipeline {
             }
         }
         stage("Build image") {
-          // agent{ label 'master'}
           agent{
               dockerfile {
                   label 'master'
@@ -22,21 +19,22 @@ pipeline {
                   reuseNode true
               }
           }
-          steps{
-            // script {
-            //   dockerImage = docker.build('builder', '-f Dockerfile.builder .')
-            // }
-            sh 'pwd && cd /home/builder/curl && ls'
+          def exists = fileExists '/home/builder/curl/configure.ac'
+          if (exists) {
+            sh "pwd && ls /home/builder/curl"
+          } else {
+              println "File doesn't exist"
           }
+          // steps{
+          //   sh 'pwd && ls /home/builder/curl'
+          // }
         }
-      // }
-    // }
     stage("Build curl"){
       agent{
           docker { image 'builder' }
       }
       steps {
-                sh 'cd /home/builder/curl && ls'
+                sh 'cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
             }
     }
   }
