@@ -20,13 +20,14 @@ pipeline {
           }
           steps{
             echo "Build image complite"
-            sh "ls -la /tmp/curl"
+            // sh "ls -la /tmp/curl"
           }
         }
     stage("Build curl"){
       agent{
         docker {
           image 'builder'
+          args '-u root'
         }
       }
       steps {
