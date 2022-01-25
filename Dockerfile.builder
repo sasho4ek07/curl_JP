@@ -4,6 +4,6 @@ RUN apk add autoconf automake libtool binutils build-base git
 # USER builder
 # RUN mkdir /home/builder/curl
 WORKDIR /tmp/curl
-COPY --chown=builder:builder ./curl /tmp/curl
+COPY ./curl /tmp/curl
 
 # RUN cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make
