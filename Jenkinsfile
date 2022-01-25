@@ -14,7 +14,7 @@ pipeline{
               dockerfile{
                 label 'docker'
                 filename 'Dockerfile.builder'
-                additionalBuildArgs  '--tag tag-builder --label label-builder'
+                additionalBuildArgs  "--tag curl-builder-${BUILD_NUMBER}"
               }
           }
           steps{
@@ -22,14 +22,14 @@ pipeline{
             // sh "ls -la /tmp/curl"
           }
         }
-    // stage("Build curl"){
-    //   agent{label 'docker'}
-    //   steps{
-    //     // sh 'pwd && ls -la /tmp/curl && whoami'
-    //     sh 'docker run builder ls /tmp/curl'
-    //     // sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
-    //     // sh 'cp /tmp/'
-    //   }
-    // }
+    stage("Build curl"){
+      agent{label 'docker'}
+      steps{
+        // sh 'pwd && ls -la /tmp/curl && whoami'
+        sh 'docker run --name builder curl-builder-${BUILD_NUMBER} ls /tmp/curl'
+        // sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+        // sh 'cp /tmp/'
+      }
+    }
   }
 }
