@@ -24,15 +24,17 @@ pipeline {
           }
         }
     stage("Build curl"){
-      agent{
-        docker {
-          image 'builder'
-          args '-u root'
-        }
+      agent{ label 'docker'
+        // docker {
+        //   image 'builder'
+        //   args '-u root'
+        // }
       }
       steps {
         // sh 'pwd && ls -la /tmp/curl && whoami'
-        sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+        sh 'docker run --rm builder ls /tmp/curl'
+        // sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+        // sh 'cp /tmp/'
       }
     }
   }
