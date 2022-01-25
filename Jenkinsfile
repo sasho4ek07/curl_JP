@@ -6,7 +6,6 @@ pipeline {
             steps {
               dir('curl') {
                 git url: 'https://github.com/curl/curl.git'
-                sh 'pwd && ls'
               }
             }
         }
@@ -21,7 +20,7 @@ pipeline {
           }
           steps{
             echo "Build image complite"
-            sh "ls -la /home/bulder/curl"
+            sh "ls -la /home/builder/curl"
           }
         }
     stage("Build curl"){
