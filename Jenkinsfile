@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
                 sh 'ls -la /home/builder'
-                sh 'cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
+                sh 'autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
             }
     }
   }
