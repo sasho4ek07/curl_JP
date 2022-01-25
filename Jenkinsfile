@@ -14,23 +14,23 @@ pipeline {
         }
         stage("Build image") {
           agent{ label 'master'}
-          // agent{
-          //     dockerfile {
-          //         label 'master'
-          //         filename 'Dockerfile.builder'
-          //         additionalBuildArgs  '--tag builder'
-          //         reuseNode true
-          //     }
-          // }
+          agent{
+              dockerfile {
+                  label 'master'
+                  filename 'Dockerfile.builder'
+                  additionalBuildArgs  '--tag builder'
+                  reuseNode true
+              }
+          }
           steps{
-            script {
-              dockerImage = docker.build('builder', '-f Dockerfile.builder .')
-            }
+            // script {
+            //   dockerImage = docker.build('builder', '-f Dockerfile.builder .')
+            // }
             sh 'pwd && cd /home/builder/curl && ls'
           }
         }
-    //   }
-    // }
+      }
+    }
     stage("Build curl"){
       agent{
           docker { image 'builder' }
