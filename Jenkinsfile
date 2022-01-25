@@ -19,14 +19,14 @@ pipeline {
                   reuseNode true
               }
           }
+          def exists = fileExists '/home/builder/curl/configure.ac'
           steps{
-            def exists = fileExists '/home/builder/curl/configure.ac'
-            if (exists) {
-              sh "pwd && ls /home/builder/curl"
-            } else {
-                println "File doesn't exist"
-            }
-          //   sh 'pwd && ls /home/builder/curl'
+            // if (exists) {
+            //   sh "pwd && ls /home/builder/curl"
+            // } else {
+            //     println "File doesn't exist"
+            // }
+            sh 'pwd && ls /home/builder/curl'
           }
         }
     stage("Build curl"){
