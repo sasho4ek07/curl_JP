@@ -25,8 +25,7 @@ pipeline{
     stage("Build curl"){
       agent{label 'docker'}
       steps{
-        sh 'docker run -it --name builder curl-builder-${BUILD_NUMBER} '
-        sh 'pwd && ls -la /tmp/curl && whoami'
+        sh 'docker run --name builder curl-builder-${BUILD_NUMBER} pwd && ls -la /tmp/curl'
         // sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
         // sh 'cp /tmp/'
       }
