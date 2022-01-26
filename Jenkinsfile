@@ -27,7 +27,7 @@ pipeline{
     stage("Stage Build curl"){
       agent{
         docker{
-          image 'builder'
+          image 'curl-builder-${BUILD_NUMBER}'
         }
       }
       steps{
