@@ -1,4 +1,7 @@
 pipeline{
+  environment {
+    DOCKER_BUILDKIT='1'
+  }
   agent none
   stages{
         stage("Clone repo") {
