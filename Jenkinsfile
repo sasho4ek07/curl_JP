@@ -26,15 +26,15 @@ pipeline{
     stage("Build curl"){
       agent{label 'docker'}
       steps{
-        sh 'docker run --name builder curl-builder-${BUILD_NUMBER} /bin/bash -c "autoreconf -fi && ./configure --without-ssl --disable-thread && make"'
-        sh 'docker cp builder:/tmp/curl/src/curl ./curl-${BUILD_NUMBER}'
+        sh 'docker run --name builder curl-builder-${BUILD_NUMBER} /bin/bash -c ./run_build.sh'
+        sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
       }
     }
   }
   post{
     always{
       node('docker'){
-        echo 'One way or another, I have finished'
+        echo 'Remove docker build container'
         // deleteDir() /* clean up our workspace */
         sh 'docker rm builder'
       }
