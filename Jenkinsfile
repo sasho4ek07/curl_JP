@@ -33,7 +33,7 @@ pipeline{
     stage("Stage UnitTests"){
       agent{label 'docker'}
       steps{
-        sh 'docker start builder /bin/bash -c "make test"'
+        sh 'docker start builder /bin/bash -c make test'
         sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
       }
     }
