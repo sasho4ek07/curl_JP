@@ -1,3 +1,4 @@
+cd curl
 CC="/usr/local/bin/x86_64-linux-musl-gcc -static" 
 LD="/usr/local/bin/x86_64-linux-musl-ld -static" 
 AR="/usr/local/bin/x86_64-linux-musl-ar -static" 

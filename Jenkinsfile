@@ -25,18 +25,23 @@ pipeline{
           }
         }
     stage("Stage Build curl"){
-      agent{label 'docker'}
+      agent{
+        docker{
+          image 'builder'
+        }
+      }
       steps{
-        sh 'docker run --name builder curl-builder-${BUILD_NUMBER} /bin/bash -c ./run_build.sh'
+        sh 'pwd && ls'
+        sh './run_build.sh'
       }
     }
-    stage("Stage UnitTests"){
-      agent{label 'docker'}
-      steps{
-        sh 'docker start builder /bin/bash -c make test'
-        sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
-      }
-    }
+    // stage("Stage UnitTests"){
+    //   agent{label 'docker'}
+    //   steps{
+    //     sh 'docker start builder /bin/bash -c make test'
+    //     sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
+    //   }
+    // }
   }
   post{
     always{
