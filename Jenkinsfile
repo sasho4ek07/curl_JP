@@ -21,20 +21,22 @@ pipeline{
               }
           }
           steps{
-            echo "Build image complite"
+            echo "Build image complete"
           }
         }
-    stage("Stage Build curl"){
-      agent{
-        docker{
-          image 'curl-builder-${BUILD_NUMBER}'
+        stage("Stage Build curl"){
+          agent{
+            docker{
+              label 'docker'
+              image 'curl-builder-${BUILD_NUMBER}'
+              reuseNode true
+            }
+          }
+          steps{
+            sh 'pwd && ls'
+            sh './run_build.sh'
+          }
         }
-      }
-      steps{
-        sh 'pwd && ls'
-        sh './run_build.sh'
-      }
-    }
     // stage("Stage UnitTests"){
     //   agent{label 'docker'}
     //   steps{
