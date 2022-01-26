@@ -21,16 +21,13 @@ pipeline{
               }
           }
           steps{
-            sh "printenv"
             echo "Build image complite"
-            // sh "ls -la /tmp/curl"
           }
         }
     stage("Stage Build curl"){
       agent{label 'docker'}
       steps{
         sh 'docker run --name builder curl-builder-${BUILD_NUMBER} /bin/bash -c ./run_build.sh'
-        // sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
       }
     }
     stage("Stage UnitTests"){
