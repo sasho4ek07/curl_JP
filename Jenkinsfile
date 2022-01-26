@@ -17,7 +17,7 @@ pipeline{
             dockerfile{
               label 'docker'
               filename 'Dockerfile.builder'
-              additionalBuildArgs  "-t curl-builder-${BUILD_NUMBER}"
+              additionalBuildArgs  "-t curl_builder_${BUILD_NUMBER}"
             }
           }
           steps{
@@ -28,7 +28,7 @@ pipeline{
           agent{
             docker{
               label 'docker'
-              image 'curl-builder-${BUILD_NUMBER}'
+              image "curl_builder_${BUILD_NUMBER}"
               reuseNode true
             }
           }
