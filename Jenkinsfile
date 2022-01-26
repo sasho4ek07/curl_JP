@@ -33,6 +33,7 @@ pipeline{
             }
           }
           steps{
+            sh "chmod +x -R ${env.WORKSPACE}"
             sh 'pwd && ls'
             sh './run_build.sh'
           }
