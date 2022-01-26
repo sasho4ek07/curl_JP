@@ -4,7 +4,7 @@ RUN apk add --no-cache autoconf automake libtool binutils build-base
 # USER builder
 # RUN mkdir /home/builder/curl
 WORKDIR /tmp/curl
-COPY ./run_build.sh /tmp/curl/run_build.sh
-COPY ./curl /tmp/curl
+COPY --chmod=755 ./run_build.sh /tmp/curl/run_build.sh
+COPY ./curl /tmp/curl 
 
 # RUN cd /home/builder/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make
