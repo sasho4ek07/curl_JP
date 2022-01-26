@@ -1,5 +1,5 @@
 FROM alpine:3.15 as build
-RUN apk add autoconf automake libtool binutils build-base git
+RUN apk add --no-cache autoconf automake libtool binutils build-base libc6-compat
 # RUN addgroup -S builder && adduser -S builder -G builder -D
 # USER builder
 # RUN mkdir /home/builder/curl

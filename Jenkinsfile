@@ -14,7 +14,7 @@ pipeline{
               dockerfile{
                 label 'docker'
                 filename 'Dockerfile.builder'
-                additionalBuildArgs  "--tag curl-builder-${BUILD_NUMBER}"
+                additionalBuildArgs  "-t curl-builder-${BUILD_NUMBER}"
               }
           }
           steps{
