@@ -27,8 +27,7 @@ pipeline{
       agent{label 'docker'}
       steps{
         sh 'docker run --name builder curl-builder-${BUILD_NUMBER} /bin/bash -c "autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make"'
-        // sh 'cd /tmp/curl && autoreconf -fi && ./configure --without-ssl --disable-shared --disable-thread && make'
-        // sh 'cp /tmp/'
+        sh 'docker cp builder:/tmp/curl/src/curl ./curl-${BUILD_NUMBER}'
       }
     }
   }
