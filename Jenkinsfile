@@ -38,13 +38,20 @@ pipeline{
             sh './run_build.sh'
           }
         }
-    // stage("Stage UnitTests"){
-    //   agent{label 'docker'}
-    //   steps{
-    //     sh 'docker start builder /bin/bash -c make test'
-    //     sh 'docker cp builder:/tmp/curl/src/curl ./curl_build_${BUILD_NUMBER}'
-    //   }
-    // }
+        stage("Stage UnitTests"){
+          agent{
+            docker{
+              label 'docker'
+              image "curl_builder_${BUILD_NUMBER}"
+              reuseNode true
+            }
+          }
+          steps{
+            sh "chmod +x -R ${env.WORKSPACE}"
+            sh 'pwd && ls'
+            sh 'cd curl && make test'
+          }
+        }
   }
   // post{
   //   always{
