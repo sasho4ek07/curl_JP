@@ -32,11 +32,13 @@ pipeline{
       }
     }
   }
-  post {
-    always {
-      echo 'One way or another, I have finished'
-      // deleteDir() /* clean up our workspace */
-      sh 'docker rm builder'
+  post{
+    always{
+      node('docker'){
+        echo 'One way or another, I have finished'
+        // deleteDir() /* clean up our workspace */
+        sh 'docker rm builder'
+      }
     }
   }
 }
