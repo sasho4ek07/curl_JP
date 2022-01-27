@@ -7,7 +7,8 @@ cd curl
 # PKG_CONFIG="pkg-config --static" 
 autoreconf -fi
 ./configure \
---without-ssl \ #--disable-thread \
+--without-ssl \
+#--disable-thread \
 # --disable-zlib --without-zlib \
 --disable-shared --enable-static  \
 # --disable-ldap --disable-sspi \
