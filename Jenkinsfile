@@ -42,7 +42,7 @@ pipeline{
           agent{
             docker{
               label 'docker'
-              // image "curl_builder_${BUILD_NUMBER}"
+              image "curl_builder_${BUILD_NUMBER}"
               reuseNode true
             }
           }
