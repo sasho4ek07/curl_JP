@@ -29,7 +29,7 @@ pipeline{
           agent{
             docker{
               label 'docker'
-              // image "curl_builder"
+              image "curl_builder"
               reuseNode true
             }
           }
