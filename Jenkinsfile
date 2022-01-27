@@ -50,6 +50,28 @@ pipeline{
             sh 'cd curl && make test'
           }
         }
+        stage("Stage PrepareArtifacts"){
+          steps {
+            archiveArtifacts artifacts: 'src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
+            sh 'build_date=$(date +%H%M-%d%m%Y);mv src/.libs/curl curl_$build_date.zip'
+          }
+        }
+      //   stage('Atrifactory'){
+      //     steps {
+      //       script {
+      //         def server = Artifactory.server 'ArtiFac_JFrog'
+      //         def uploadSpec = """{
+      //           "files": [
+      //             {
+      //                 "pattern": "*.zip",
+      //                 "target": "example-repo-local/curl"
+      //             }
+      //           ]
+      //         }"""
+      //         server.upload spec: uploadSpec, failNoOp: true
+      //       }
+      //     }
+      // }
   }
   // post{
   //   always{
