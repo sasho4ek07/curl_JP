@@ -1,3 +1,4 @@
+properties([parameters([booleanParam(defaultValue: false, description: 'Run UnitTests', name: 'RunTests')])])
 pipeline{
   // environment {
   //   DOCKER_BUILDKIT='1'
@@ -51,7 +52,11 @@ pipeline{
           }
         }
         stage("Stage PrepareArtifacts"){
-          steps {
+          agent{label 'master'}
+          when {
+            expression {params.RunTests}
+          }
+          steps{
             archiveArtifacts artifacts: 'src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
             sh 'build_date=$(date +%H%M-%d%m%Y);mv src/.libs/curl curl_$build_date.zip'
           }
