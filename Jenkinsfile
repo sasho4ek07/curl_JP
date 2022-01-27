@@ -40,6 +40,9 @@ pipeline{
           }
         }
         stage("Stage UnitTests"){
+          when {
+            expression {params.RunTests}
+          }
           agent{
             docker{
               label 'docker'
@@ -53,9 +56,6 @@ pipeline{
         }
         stage("Stage PrepareArtifacts"){
           agent{label 'master'}
-          when {
-            expression {params.RunTests}
-          }
           steps{
             archiveArtifacts artifacts: 'src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
             sh 'build_date=$(date +%H%M-%d%m%Y);mv src/.libs/curl curl_$build_date.zip'
