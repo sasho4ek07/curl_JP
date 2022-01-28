@@ -79,7 +79,7 @@ pipeline{
             // }
             // echo 
             rtUpload (
-              serverId: 'local_artifactory',
+              serverId: 'local_artifactory'
             //     spec: '''{
             //             "files": [
             //               {
