@@ -3,10 +3,10 @@ pipeline{
   // environment {
   //   DOCKER_BUILDKIT='1'
   // }
-  agent none
+  agent {label 'docker'}
   stages{
         stage("Stage clone repo") {
-          agent{label 'master'}
+          // agent{label 'master'}
             steps{
               dir('curl') {
                 git url: 'https://github.com/curl/curl.git'
@@ -16,7 +16,7 @@ pipeline{
         stage("Stage Build image"){
           agent{
             dockerfile{
-              label 'docker'
+              // label 'docker'
               filename 'Dockerfile.builder'
               additionalBuildArgs  "-t curl_builder"
               reuseNode true
@@ -29,7 +29,7 @@ pipeline{
         stage("Stage Build curl"){
           agent{
             docker{
-              label 'docker'
+              // label 'docker'
               image "curl_builder"
               reuseNode true
             }
@@ -45,7 +45,7 @@ pipeline{
           }
           agent{
             docker{
-              label 'docker'
+              // label 'docker'
               image "curl_builder"
               reuseNode true
             }
@@ -55,14 +55,14 @@ pipeline{
           }
         }
         stage("Stage PrepareArtifacts"){
-          agent{label 'master'}
+          // agent{label 'master'}
           steps{
             archiveArtifacts artifacts: 'curl/src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
             sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_$build_date'
           }
         }
         stage('Upload to Atrifactory'){
-          agent{label 'master'}
+          // agent{label 'master'}
           steps {
             script {
               def server = Artifactory.server 'ArtiFactory'
