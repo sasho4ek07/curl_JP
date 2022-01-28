@@ -77,7 +77,7 @@ pipeline{
             //   }"""
             //   server.upload spec: uploadSpec, failNoOp: true
             // }
-            // echo 
+            echo "UPLOAD"
             rtUpload (
               serverId: 'local_artifactory'
             //     spec: '''{
