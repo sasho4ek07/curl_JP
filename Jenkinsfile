@@ -81,7 +81,7 @@ pipeline{
                 spec: '''{
                       "files": [
                         {
-                        "pattern": "curl_",
+                        "pattern": "^curl_*",
                         "target": "example-repo-local/curl"
                         }
                       ]
