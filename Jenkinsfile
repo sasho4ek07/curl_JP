@@ -57,18 +57,19 @@ pipeline{
         stage("Stage PrepareArtifacts"){
           agent{label 'master'}
           steps{
-            archiveArtifacts artifacts: 'src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
-            sh 'build_date=$(date +%H%M-%d%m%Y);mv src/.libs/curl curl_$build_date.zip'
+            archiveArtifacts artifacts: 'curl/src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
+            sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_$build_date'
           }
         }
       //   stage('Atrifactory'){
+      //     agent{label 'master'}
       //     steps {
       //       script {
-      //         def server = Artifactory.server 'ArtiFac_JFrog'
+      //         def server = Artifactory.server 'ArtiFactory'
       //         def uploadSpec = """{
       //           "files": [
       //             {
-      //                 "pattern": "*.zip",
+      //                 "pattern": "curl_",
       //                 "target": "example-repo-local/curl"
       //             }
       //           ]
