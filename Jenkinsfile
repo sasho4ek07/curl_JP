@@ -1,7 +1,7 @@
 properties([parameters([booleanParam(defaultValue: false, description: 'Run UnitTests', name: 'RunTests')])])
 pipeline{
   agent {label 'docker'}
-  environment { 
+  environment {
         BUILD_DATE = "${sh(returnStdout: true, script: 'date +%H%M-%d%m%Y')}"
   }
   stages{
@@ -97,7 +97,7 @@ pipeline{
         //         // project: 'my-project-key'
         //     )
         //   }
-      }
+      // }
   }
   // post{
   //   always{
