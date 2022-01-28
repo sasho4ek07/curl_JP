@@ -57,8 +57,8 @@ pipeline{
         stage("Stage PrepareArtifacts"){
           // agent{label 'master'}
           steps{
-            archiveArtifacts artifacts: 'curl/src/.libs/curl', fingerprint: true, onlyIfSuccessful: true
             sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_$build_date'
+            archiveArtifacts artifacts: 'curl_$build_date', fingerprint: true, onlyIfSuccessful: true
           }
         }
         stage('Upload to Atrifactory'){
@@ -77,7 +77,7 @@ pipeline{
             //   server.upload spec: uploadSpec, failNoOp: true
             // }
             rtUpload (
-              serverId: 'ArtiFactory',
+              serverId: 'local_artifactory',
                 spec: '''{
                       "files": [
                         {
