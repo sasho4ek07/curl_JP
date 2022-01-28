@@ -58,7 +58,7 @@ pipeline{
           // agent{label 'master'}
           steps{
             // sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_${build_date}'
-            echo ${env.BUILD_DATE}
+            echo "${env.BUILD_DATE}"
             // archiveArtifacts artifacts: 'curl_${build_date}', fingerprint: true, onlyIfSuccessful: true
           }
         }
