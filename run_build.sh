@@ -10,7 +10,7 @@ autoreconf -fi
 --without-ssl \
 #--disable-thread \
 # --disable-zlib --without-zlib \
---disable-shared --enable-static  \
+--disable-shared --enable-static \
 # --disable-ldap --disable-sspi \
 # --without-librtmp --disable-ftp \
 # --disable-file --disable-dict \
