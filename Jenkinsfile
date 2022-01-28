@@ -65,21 +65,24 @@ pipeline{
         stage('Upload to Atrifactory'){
           // agent{label 'master'}
           steps {
-            // script {
-            //   def server = Artifactory.server 'ArtiFactory'
-            //   def uploadSpec = """{
-            //     "files": [
-            //       {
-            //           "pattern": "curl_",
-            //           "target": "example-repo-local/curl"
-            //       }
-            //     ]
-            //   }"""
-            //   server.upload spec: uploadSpec, failNoOp: true
-            // }
-              echo "UPLOAD"
+            echo "define the Artifactory server"
+            rtServer (
+              id: 'Artifactory-1',
+              url: 'http://artifactory:8082/artifactory',
+              // If you're using username and password:
+              // username: 'user',
+              // password: 'password',
+              // If you're using Credentials ID:
+              credentialsId: 'Atrifactory local Jenkins',
+              // If Jenkins is configured to use an http proxy, you can bypass the proxy when using this Artifactory server:
+              // bypassProxy: true,
+              // Configure the connection timeout (in seconds).
+              // The default value (if not configured) is 300 seconds:
+              timeout: 300
+            )
+            echo "UPLOAD"
             rtUpload (
-              serverId: 'local_artifactory',
+              serverId: 'Artifactory-1',
                 spec: '''{
                         "files": [
                           {
