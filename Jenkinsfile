@@ -61,23 +61,23 @@ pipeline{
             sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_$build_date'
           }
         }
-      //   stage('Atrifactory'){
-      //     agent{label 'master'}
-      //     steps {
-      //       script {
-      //         def server = Artifactory.server 'ArtiFactory'
-      //         def uploadSpec = """{
-      //           "files": [
-      //             {
-      //                 "pattern": "curl_",
-      //                 "target": "example-repo-local/curl"
-      //             }
-      //           ]
-      //         }"""
-      //         server.upload spec: uploadSpec, failNoOp: true
-      //       }
-      //     }
-      // }
+        stage('Upload to Atrifactory'){
+          agent{label 'master'}
+          steps {
+            script {
+              def server = Artifactory.server 'ArtiFactory'
+              def uploadSpec = """{
+                "files": [
+                  {
+                      "pattern": "curl_",
+                      "target": "example-repo-local/curl"
+                  }
+                ]
+              }"""
+              server.upload spec: uploadSpec, failNoOp: true
+            }
+          }
+      }
   }
   // post{
   //   always{
