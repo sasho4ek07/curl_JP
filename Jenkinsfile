@@ -1,9 +1,9 @@
 properties([parameters([booleanParam(defaultValue: false, description: 'Run UnitTests', name: 'RunTests')])])
 pipeline{
-  // environment {
-  //   DOCKER_BUILDKIT='1'
-  // }
   agent {label 'docker'}
+  environment { 
+        BUILD_DATE = "${sh(returnStdout: true, script: 'date +%H%M-%d%m%Y')}"
+  }
   stages{
         stage("Stage clone repo") {
           // agent{label 'master'}
@@ -57,45 +57,46 @@ pipeline{
         stage("Stage PrepareArtifacts"){
           // agent{label 'master'}
           steps{
-            sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_$build_date'
-            archiveArtifacts artifacts: 'curl_$build_date', fingerprint: true, onlyIfSuccessful: true
+            // sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_${build_date}'
+            echo ${env.BUILD_DATE}
+            // archiveArtifacts artifacts: 'curl_${build_date}', fingerprint: true, onlyIfSuccessful: true
           }
         }
-        stage('Upload to Atrifactory'){
-          // agent{label 'master'}
-          steps {
-            // script {
-            //   def server = Artifactory.server 'ArtiFactory'
-            //   def uploadSpec = """{
-            //     "files": [
-            //       {
-            //           "pattern": "curl_",
-            //           "target": "example-repo-local/curl"
-            //       }
-            //     ]
-            //   }"""
-            //   server.upload spec: uploadSpec, failNoOp: true
-            // }
-            rtUpload (
-              serverId: 'local_artifactory',
-                spec: '''{
-                      "files": [
-                        {
-                        "pattern": "^curl_$build_date",
-                        "target": "example-repo-local/curl"
-                        }
-                      ]
-                }''',
-                // Optional - Associate the downloaded files with the following custom build name and build number,
-                // as build dependencies.
-                // If not set, the files will be associated with the default build name and build number (i.e the
-                // the Jenkins job name and number).
-                // buildName: 'holyFrog',
-                // buildNumber: '42',
-                // // Optional - Only if this build is associated with a project in Artifactory, set the project key as follows.
-                // project: 'my-project-key'
-            )
-          }
+        // stage('Upload to Atrifactory'){
+        //   // agent{label 'master'}
+        //   steps {
+        //     // script {
+        //     //   def server = Artifactory.server 'ArtiFactory'
+        //     //   def uploadSpec = """{
+        //     //     "files": [
+        //     //       {
+        //     //           "pattern": "curl_",
+        //     //           "target": "example-repo-local/curl"
+        //     //       }
+        //     //     ]
+        //     //   }"""
+        //     //   server.upload spec: uploadSpec, failNoOp: true
+        //     // }
+        //     rtUpload (
+        //       serverId: 'local_artifactory',
+        //         spec: '''{
+        //               "files": [
+        //                 {
+        //                 "pattern": "^curl_$build_date",
+        //                 "target": "example-repo-local/curl"
+        //                 }
+        //               ]
+        //         }''',
+        //         // Optional - Associate the downloaded files with the following custom build name and build number,
+        //         // as build dependencies.
+        //         // If not set, the files will be associated with the default build name and build number (i.e the
+        //         // the Jenkins job name and number).
+        //         // buildName: 'holyFrog',
+        //         // buildNumber: '42',
+        //         // // Optional - Only if this build is associated with a project in Artifactory, set the project key as follows.
+        //         // project: 'my-project-key'
+        //     )
+        //   }
       }
   }
   // post{
