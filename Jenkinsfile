@@ -17,7 +17,7 @@ pipeline{
           agent{
             dockerfile{
               // label 'docker'
-              filename 'Dockerfile.builder'
+              filename "Dockerfile.builder"
               additionalBuildArgs  "-t curl_builder"
               reuseNode true
             }
@@ -36,7 +36,7 @@ pipeline{
           }
           steps{
             sh "chmod +x -R ${env.WORKSPACE}"
-            sh './run_build.sh'
+            sh "./run_build.sh"
           }
         }
         stage("Stage UnitTests"){
@@ -51,15 +51,15 @@ pipeline{
             }
           }
           steps{
-            sh 'cd curl && make test'
+            sh "cd curl && make test"
           }
         }
         stage("Stage PrepareArtifacts"){
           // agent{label 'master'}
           steps{
-            // sh 'build_date=$(date +%H%M-%d%m%Y);mv curl/src/.libs/curl curl_${build_date}'
-            echo "${env.BUILD_DATE}"
-            // archiveArtifacts artifacts: 'curl_${build_date}', fingerprint: true, onlyIfSuccessful: true
+            echo "Buil date: ${env.BUILD_DATE}"
+            sh "mv curl/src/.libs/curl curl_${env.BUILD_DATE}"
+            archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
           }
         }
         // stage('Upload to Atrifactory'){
