@@ -76,12 +76,12 @@ pipeline{
             //   }"""
             //   server.upload spec: uploadSpec, failNoOp: true
             // }
-            rtDownload (
+            rtUpload (
               serverId: 'ArtiFactory',
                 spec: '''{
                       "files": [
                         {
-                        "pattern": "^curl_*",
+                        "pattern": "^curl_$build_date",
                         "target": "example-repo-local/curl"
                         }
                       ]
