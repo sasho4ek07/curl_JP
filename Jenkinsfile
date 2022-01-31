@@ -67,33 +67,33 @@ pipeline{
             //   credentialsId: 'Atrifactory local Jenkins',
             //   timeout: 300
             // )
-            // echo "UPLOAD"
-            // rtUpload (
-            //   serverId: 'Artifactory-1',
-            //     spec: '''{
-            //             "files": [
-            //               {
-            //                 "pattern": "curl_${env.BUILD_DATE}",
-            //                 "target": "example-repo-local/curl"
-            //               }
-            //             ]
-            //     }''',
-            //     buildName: 'my_Curl_DEV',
-            //     buildNumber: "${env.BUILD_ID}",
-            //     failNoOp: true
-            // )
-            script {
-                    def server = Artifactory.server 'local_artifactory'
-                    def uploadSpec = """{
+            echo "UPLOAD"
+            rtUpload (
+              serverId: 'local_artifactory',
+                spec: '''{
                         "files": [
-                            {
-                                "pattern": "*.zip",
-                                "target": "example-repo-local/curl"
-                            }
+                          {
+                            "pattern": "curl_${env.BUILD_DATE}.zip",
+                            "target": "example-repo-local/curl"
+                          }
                         ]
-                    }"""
-                server.upload spec: uploadSpec, failNoOp: true
-            }
+                }''',
+                buildName: 'my_Curl_DEV',
+                buildNumber: "${env.BUILD_ID}",
+                failNoOp: true
+            )
+            // script {
+            //         def server = Artifactory.server 'local_artifactory'
+            //         def uploadSpec = """{
+            //             "files": [
+            //                 {
+            //                     "pattern": "*.zip",
+            //                     "target": "example-repo-local/curl"
+            //                 }
+            //             ]
+            //         }"""
+            //     server.upload spec: uploadSpec, failNoOp: true
+            // }
           }
         }
   }
