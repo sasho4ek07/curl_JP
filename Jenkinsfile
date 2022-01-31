@@ -54,8 +54,8 @@ pipeline{
           steps{
             echo "Buil date: ${env.BUILD_DATE}"
             sh "mv curl/src/.libs/curl curl_${env.BUILD_DATE}"
-            archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
             sh "zip curl_${env.BUILD_DATE}.zip curl_${env.BUILD_DATE}"
+            archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
           }
         }
         stage('Upload to Atrifactory'){
