@@ -2,7 +2,7 @@ properties([parameters([booleanParam(defaultValue: false, description: 'Run Unit
 pipeline{
   agent {label 'docker'}
   environment {
-        BUILD_DATE = "${sh(returnStdout: true, script: 'date +%H%M-%d%m%Y')}"
+        BUILD_DATE = $(date +%H%M-%d%m%Y)
   }
   stages{
         stage("Stage clone repo") {
@@ -55,53 +55,53 @@ pipeline{
             echo "-------printenv-------"
             sh 'printenv'
             echo "-------printenv end-------"
-            echo "Buil date: ${env.BUILD_DATE}"
-            sh "cp curl/src/.libs/curl curl_${env.BUILD_DATE}"
-            echo "-------CHECK-------"
-            sh "echo curl_${env.BUILD_DATE} curl_${env.BUILD_DATE}.zip"
-            echo "-------CHECK 1-------"
-            archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
-            echo "-------CHECK 2-------"
+            // echo "Buil date: ${env.BUILD_DATE}"
+            // sh "cp curl/src/.libs/curl curl_${env.BUILD_DATE}"
+            // echo "-------CHECK-------"
+            // sh "echo curl_${env.BUILD_DATE} curl_${env.BUILD_DATE}.zip"
+            // echo "-------CHECK 1-------"
+            // archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
+            // echo "-------CHECK 2-------"
           }
         }
-        stage('Upload to Atrifactory'){
-          steps {
-            // echo "Define the Artifactory server"
-            // rtServer (
-            //   id: 'Artifactory-1',
-            //   url: 'http://artifactory:8082/artifactory',
-            //   credentialsId: 'Atrifactory local Jenkins',
-            //   timeout: 300
-            // )
-            // echo "UPLOAD"
-            // rtUpload (
-            //   serverId: 'Artifactory-1',
-            //     spec: '''{
-            //             "files": [
-            //               {
-            //                 "pattern": "curl_${env.BUILD_DATE}",
-            //                 "target": "example-repo-local/curl"
-            //               }
-            //             ]
-            //     }''',
-            //     buildName: 'my_Curl_DEV',
-            //     buildNumber: "${env.BUILD_ID}",
-            //     failNoOp: true
-            // )
-            script {
-                    def server = Artifactory.server 'local_artifactory'
-                    def uploadSpec = """{
-                        "files": [
-                            {
-                                "pattern": "*.zip",
-                                "target": "example-repo-local/curl"
-                            }
-                        ]
-                    }"""
-                server.upload spec: uploadSpec, failNoOp: true
-	            }
-          }
-        }
+        // stage('Upload to Atrifactory'){
+        //   steps {
+        //     // echo "Define the Artifactory server"
+        //     // rtServer (
+        //     //   id: 'Artifactory-1',
+        //     //   url: 'http://artifactory:8082/artifactory',
+        //     //   credentialsId: 'Atrifactory local Jenkins',
+        //     //   timeout: 300
+        //     // )
+        //     // echo "UPLOAD"
+        //     // rtUpload (
+        //     //   serverId: 'Artifactory-1',
+        //     //     spec: '''{
+        //     //             "files": [
+        //     //               {
+        //     //                 "pattern": "curl_${env.BUILD_DATE}",
+        //     //                 "target": "example-repo-local/curl"
+        //     //               }
+        //     //             ]
+        //     //     }''',
+        //     //     buildName: 'my_Curl_DEV',
+        //     //     buildNumber: "${env.BUILD_ID}",
+        //     //     failNoOp: true
+        //     // )
+        //     script {
+        //             def server = Artifactory.server 'local_artifactory'
+        //             def uploadSpec = """{
+        //                 "files": [
+        //                     {
+        //                         "pattern": "*.zip",
+        //                         "target": "example-repo-local/curl"
+        //                     }
+        //                 ]
+        //             }"""
+        //         server.upload spec: uploadSpec, failNoOp: true
+	      //       }
+        //   }
+        // }
   }
   // post{
   //   always{
