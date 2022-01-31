@@ -2,7 +2,7 @@ properties([parameters([booleanParam(defaultValue: false, description: 'Run Unit
 pipeline{
   agent {label 'docker'}
   environment {
-        BUILD_DATE = $(date +%H%M-%d%m%Y)
+        BUILD_DATE = sh(script:'date +%H%M-%d%m%Y', returnStdout: true).trim()
   }
   stages{
         stage("Stage clone repo") {
