@@ -74,7 +74,7 @@ pipeline{
                         "files": [
                           {
                             "pattern": "*.zip",
-                            "target": "example-repo-local/curl"
+                            "target": "example-repo-local/curl/"
                           }
                         ]
                 }''',
