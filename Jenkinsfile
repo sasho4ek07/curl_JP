@@ -73,7 +73,7 @@ pipeline{
                 spec: '''{
                         "files": [
                           {
-                            "pattern": "curl_${env.BUILD_DATE}.zip",
+                            "pattern": "*.zip",
                             "target": "example-repo-local/curl"
                           }
                         ]
