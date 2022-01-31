@@ -58,44 +58,44 @@ pipeline{
             archiveArtifacts artifacts: "curl_${env.BUILD_DATE}", fingerprint: true, onlyIfSuccessful: true
           }
         }
-        // stage('Upload to Atrifactory'){
-        //   steps {
-        //     // echo "Define the Artifactory server"
-        //     // rtServer (
-        //     //   id: 'Artifactory-1',
-        //     //   url: 'http://artifactory:8082/artifactory',
-        //     //   credentialsId: 'Atrifactory local Jenkins',
-        //     //   timeout: 300
-        //     // )
-        //     // echo "UPLOAD"
-        //     // rtUpload (
-        //     //   serverId: 'Artifactory-1',
-        //     //     spec: '''{
-        //     //             "files": [
-        //     //               {
-        //     //                 "pattern": "curl_${env.BUILD_DATE}",
-        //     //                 "target": "example-repo-local/curl"
-        //     //               }
-        //     //             ]
-        //     //     }''',
-        //     //     buildName: 'my_Curl_DEV',
-        //     //     buildNumber: "${env.BUILD_ID}",
-        //     //     failNoOp: true
-        //     // )
-        //     script {
-        //             def server = Artifactory.server 'local_artifactory'
-        //             def uploadSpec = """{
-        //                 "files": [
-        //                     {
-        //                         "pattern": "*.zip",
-        //                         "target": "example-repo-local/curl"
-        //                     }
-        //                 ]
-        //             }"""
-        //         server.upload spec: uploadSpec, failNoOp: true
-	      //       }
-        //   }
-        // }
+        stage('Upload to Atrifactory'){
+          steps {
+            // echo "Define the Artifactory server"
+            // rtServer (
+            //   id: 'Artifactory-1',
+            //   url: 'http://artifactory:8082/artifactory',
+            //   credentialsId: 'Atrifactory local Jenkins',
+            //   timeout: 300
+            // )
+            // echo "UPLOAD"
+            // rtUpload (
+            //   serverId: 'Artifactory-1',
+            //     spec: '''{
+            //             "files": [
+            //               {
+            //                 "pattern": "curl_${env.BUILD_DATE}",
+            //                 "target": "example-repo-local/curl"
+            //               }
+            //             ]
+            //     }''',
+            //     buildName: 'my_Curl_DEV',
+            //     buildNumber: "${env.BUILD_ID}",
+            //     failNoOp: true
+            // )
+            script {
+                    def server = Artifactory.server 'local_artifactory'
+                    def uploadSpec = """{
+                        "files": [
+                            {
+                                "pattern": "*.zip",
+                                "target": "example-repo-local/curl"
+                            }
+                        ]
+                    }"""
+                server.upload spec: uploadSpec, failNoOp: true
+            }
+          }
+        }
   }
   // post{
   //   always{
