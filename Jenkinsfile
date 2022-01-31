@@ -32,7 +32,7 @@ pipeline{
             }
           }
           steps{
-            sh "chmod +x -R ${env.WORKSPACE}"
+            sh "chmod +x ${env.WORKSPACE}/run_build.sh"
             sh "./run_build.sh"
           }
         }
